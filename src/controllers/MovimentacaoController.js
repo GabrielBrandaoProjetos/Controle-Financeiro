@@ -5,7 +5,7 @@ module.exports = {
         const {nome, descricao, valor, categoria, data} = Request.body;
         const user_id = Request.headers.authorization;
         const {caixa_id} = Request.params;
-        console.log({caixa_id})
+        
         await connection('movimentacao').insert({
             nome, 
             descricao, 
@@ -15,11 +15,19 @@ module.exports = {
             user_id,
             caixa_id,
         });
+        
+        const result = await connection('caixa')
+        .where('id', caixa_id).update({saldo: valor});
+        
+        if(result){
+            return Response.json({valor})
+        }
 
-        const [saldo] = await connection('caixa')
-        .where('caixa_id', id).update({saldo: valor});
+        return Response.status(401).json({error: 'Operação não permitida!'})
+    },
 
-
-        return Response.json({saldo})
-    }
+    async list(Request, Response){
+        const move = await connection('movimentacao').select('*');
+        return Response.json(move);
+    },
 }

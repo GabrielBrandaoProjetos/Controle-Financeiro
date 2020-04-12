@@ -6,7 +6,7 @@ exports.up = function(knex) {
         table.decimal('entrada_limite');
         table.decimal('teto');
         //table.string('prioridade');
-        table.string('saldo').notNullable();
+        table.decimal('saldo').notNullable();
 
         table.string('user_id').notNullable();
 
