@@ -14,6 +14,7 @@ routes.get('/caixa', CaixaController.list);
 routes.delete('/caixa/:id', CaixaController.delete);
 routes.post('/caixa/:id', CaixaController.update);
 
-routes.post('/movimentacao/:id', MovimentacaoController.create)
+routes.post('/movimentacao/:caixa_id', MovimentacaoController.create);
+routes.get('/movimentacao', MovimentacaoController.list)
 
 module.exports = routes;
