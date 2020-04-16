@@ -17,5 +17,11 @@ module.exports = {
     async list(Request, Response){
         const users = await connection('user').select('*');
         return Response.json(users);
+    },
+
+    async listCaixas(Request, Response){
+        const {user_id} = Request.params
+        const caixas = await connection('user_caixa').where('user_id', user_id).select('*');
+        return Response.json(caixas);
     }
 }
